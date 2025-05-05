@@ -1950,37 +1950,53 @@ class PlayState extends MusicBeatState
 	public dynamic function updateIconsScale(elapsed:Float)
 	{
 		switch(ClientPrefs.data.bopType) {
-			case "Normal":
-		var mult:Float = FlxMath.lerp(1, iconP1.scale.x, Math.exp(-elapsed * 9 * playbackRate));
-		iconP1.scale.set(mult, mult);
-		iconP1.updateHitbox();
+		case "Psych":
+			var mult:Float = FlxMath.lerp(1, iconP1.scale.x, Math.exp(-elapsed * 9 * playbackRate));
+			iconP1.scale.set(mult, mult);
+			iconP1.updateHitbox();
 
-		var mult:Float = FlxMath.lerp(1, iconP2.scale.x, Math.exp(-elapsed * 9 * playbackRate));
-		iconP2.scale.set(mult, mult);
-		iconP2.updateHitbox();
+			var mult:Float = FlxMath.lerp(1, iconP2.scale.x, Math.exp(-elapsed * 9 * playbackRate));
+			iconP2.scale.set(mult, mult);
+			iconP2.updateHitbox();
+
+		case "Lumen":
+			var beatDuration:Float = Conductor.stepCrochet / 1000;
+			var totalDuration:Float = beatDuration * 4;
+		
+			var t:Float = FlxMath.bound(elapsed / totalDuration, 0, 1);
+	
+			var easeFactor:Float = FlxMath.lerp(Math.exp(-elapsed * 9 * playbackRate), FlxMath.lerp(Math.exp(-t * 6), Math.pow(1 - t, 4), t * 0.8), 0.52);
+		
+			var mult:Float = FlxMath.lerp(1, iconP1.scale.x, easeFactor);
+			iconP1.scale.set(mult, mult);
+			iconP1.updateHitbox();
+		
+			mult = FlxMath.lerp(1, iconP2.scale.x, easeFactor);
+			iconP2.scale.set(mult, mult);
+			iconP2.updateHitbox();
 				
-			case "Fake Vintage": //Made accidentally by Chatgpt
-				var lerpRatioFast = FlxMath.bound(Math.exp(-elapsed * 20 * playbackRate), 0, 1);
-				var lerpRatioSlow = FlxMath.bound(Math.exp(-elapsed * 12 * playbackRate), 0, 1);
+		case "Fake Vintage": //Made accidentally by Chatgpt
+			var lerpRatioFast = FlxMath.bound(Math.exp(-elapsed * 20 * playbackRate), 0, 1);
+			var lerpRatioSlow = FlxMath.bound(Math.exp(-elapsed * 12 * playbackRate), 0, 1);
 
-				// Player 1
-				var target1 = (healthBar.percent < 20) ? 1.15 : 1.0;
-				var mult1 = FlxMath.lerp(iconP1.scale.x, target1, (healthBar.percent < 20) ? lerpRatioFast : lerpRatioSlow);
-				iconP1.scale.set(mult1, mult1);
-				iconP1.updateHitbox();
-				iconP1.centerOffsets();
+			// Player 1
+			var target1 = (healthBar.percent < 20) ? 1.15 : 1.0;
+			var mult1 = FlxMath.lerp(iconP1.scale.x, target1, (healthBar.percent < 20) ? lerpRatioFast : lerpRatioSlow);
+			iconP1.scale.set(mult1, mult1);
+			iconP1.updateHitbox();
+			iconP1.centerOffsets();
 
-				// Player 2
-				var target2 = (healthBar.percent > 80) ? 1.15 : 1.0;
-				var mult2 = FlxMath.lerp(iconP2.scale.x, target2, (healthBar.percent > 80) ? lerpRatioFast : lerpRatioSlow);
-				iconP2.scale.set(mult2, mult2);
-				iconP2.updateHitbox();
-				iconP2.centerOffsets();
-			case "Kade":
-				iconP1.setGraphicSize(Std.int(FlxMath.lerp(150, iconP1.width, 0.50)));
-				iconP2.setGraphicSize(Std.int(FlxMath.lerp(150, iconP2.width, 0.50)));
-				iconP1.updateHitbox();
-				iconP2.updateHitbox();
+			// Player 2
+			var target2 = (healthBar.percent > 80) ? 1.15 : 1.0;
+			var mult2 = FlxMath.lerp(iconP2.scale.x, target2, (healthBar.percent > 80) ? lerpRatioFast : lerpRatioSlow);
+			iconP2.scale.set(mult2, mult2);
+			iconP2.updateHitbox();
+			iconP2.centerOffsets();
+		case "Kade":
+			iconP1.setGraphicSize(Std.int(FlxMath.lerp(150, iconP1.width, 0.50)));
+			iconP2.setGraphicSize(Std.int(FlxMath.lerp(150, iconP2.width, 0.50)));
+			iconP1.updateHitbox();
+			iconP2.updateHitbox();
 			//Kade engine icon bop is in update() and beatHit() (though the one in beatHit() works in here too.)
 			
 		}

@@ -72,7 +72,7 @@ import states.TitleState;
 	public var healthBarAlpha:Float = 1;
 	public var hitsoundVolume:Float = 0;
 	public var pauseMusic:String = 'Tea Time';
-	public var menuMusic:String = 'Freaky Menu';
+	public var menuMusic:String = 'FreakyMenu'; // its not properly "Gettin Freaky" because i have to deal with filename shit, but its the same song
 	public var checkForUpdates:Bool = true;
 	public var comboStacking:Bool = true;
 	public var gameplaySettings:Map<String, Dynamic> = [
