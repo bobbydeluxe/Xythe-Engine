@@ -17,7 +17,7 @@ jobs:
             os: windows-2022
             buildArgs: windows
             exportPath: windows
-            artifactName: P-Slice.1.0.windows
+            artifactName: xythe.1.0.windows
             setupScript: .\"setup/windows.bat"
             artifactPath: export\release\windows\bin\*
           - name: Linux
@@ -25,7 +25,7 @@ jobs:
             buildArgs: linux
             exportPath: linux
             setupScript: sh ./setup/unix.sh
-            artifactName: P-Slice.1.0.linux
+            artifactName: xythe.1.0.linux
             artifactPath: export/release/linux/bin/*
           # - name: macOS x86_64
           #   os: macos-14
@@ -39,7 +39,7 @@ jobs:
             buildArgs: mac
             exportPath: macos
             setupScript: sh ./setup/mobile.sh
-            artifactName: P-Slice.1.0.macosarm64
+            artifactName: xythe.1.0.macosarm64
             artifactPath: export/release/macos/bin/*
     uses: ./.github/workflows/build.yml
     with:
@@ -61,14 +61,14 @@ jobs:
             exportPath: android
             buildArgs: "android"
             setupScript: sh ./setup/mobile.sh
-            artifactName: P-Slice.1.0.android
+            artifactName: xythe.1.0.android
             artifactPath: "export/release/android/bin/app/build/outputs/apk/release/*.apk"
           - name: iOS
             os: macos-15
             buildArgs: "ios -nosign"
             exportPath: ios
             setupScript: sh ./setup/mobile.sh
-            artifactName: P-Slice.1.0.ios
+            artifactName: xythe.1.0.ios
             artifactPath: "export/release/ios/build/Release-iphoneos/*.ipa"
     uses: ./.github/workflows/build.yml
     with:
